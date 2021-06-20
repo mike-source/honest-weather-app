@@ -35,7 +35,7 @@ export class LocationForecast extends React.Component {
    */
   fetchWeatherForecast(lat, lon) {
     // this needs obscuring
-    const API_KEY = '52849cdae330951f7a554fc10cc6490d';
+    const API_KEY = process.env.REACT_APP_API_KEY;
     // the things we dont need from the api, csv (alerts, minutely, hourly, daily, current)
     const exclude = "minutely,daily";
     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${exclude}&appid=${API_KEY}`;
