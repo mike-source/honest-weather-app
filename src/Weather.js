@@ -4,8 +4,6 @@ import './App.css';
 export class Weather extends React.Component {
 
   render() {
-    console.log("Weather Report: ", this.props);
-
     // TODO check fields properly
     if (!this.props.report.current) {
       return <div className="error">Problem with getting the weather...</div>
