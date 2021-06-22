@@ -27,7 +27,7 @@ export function WeatherEmoji(props) {
   }
 
   /**
-   * Recursively determine the correct emoji code in constant time. 
+   * Recursively determine the correct emoji code with minimal lookups. 
    * e.g. getEmoji(782) => 1F32B, getEmoji(781) => 1F32A
    * // TODO add millions of emojis to make this worthwhile ;)
    * @param {Number} code The code from open weather api 
