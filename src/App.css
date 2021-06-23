@@ -1,0 +1,39 @@
+span {
+  padding: 10px;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+.app { 
+  width: 60%;
+  margin: auto;
+}
+.app__header {
+ }
+.app__header--main-heading{
+  color: blueviolet;
+}
+.report {
+  margin: 18px;
+}
+
+.report__main span {
+  font-weight: bold;
+
+}
+.report__description {
+  display: inline-block;
+  padding: 10px;
+}
+
+.location :first-child{
+  font-weight: bold;
+}
+
+.weather-emoji {
+  font-size: 48px;
+  padding: 6px;
+}
