@@ -32,3 +32,8 @@ main {
 .location :first-child{
   font-weight: bold;
 }
+
+.weather-emoji {
+  font-size: 48px;
+  padding: 6px;
+}

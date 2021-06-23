@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+import { WeatherEmoji } from "./WeatherEmoji.js";
 
 export class Weather extends React.Component {
 
@@ -17,7 +18,8 @@ export class Weather extends React.Component {
           </span> */}
         </div>
         <div className="report__description">
-          {this.props.report.current.weather[0].description}
+          <WeatherEmoji code={this.props.report.current.weather[0].id}></WeatherEmoji>
+          {this.props.report.current.weather[0].description} with a {this.props.report.hourly[0].pop * 100}% of getting wet.
         </div>
         <div className="report__main">
           <span>The weather will be: </span>
@@ -26,7 +28,8 @@ export class Weather extends React.Component {
           </span> */}
         </div>
         <div className="report__description">
-          {this.props.report.hourly[1].weather[0].description}
+          <WeatherEmoji code={this.props.report.hourly[1].weather[0].id}></WeatherEmoji>
+          {this.props.report.hourly[1].weather[0].description} with a {this.props.report.hourly[1].pop * 100}% of getting wet.
         </div>
       </div>
 
