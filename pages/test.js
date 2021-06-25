@@ -1,5 +1,5 @@
 import styles from '../styles/App.module.css'
-import { LocationForecast } from '../components/LocationForecast.js';
+import LocationForecast from '../components/LocationForecast.js';
 
 function App() {
   return (
