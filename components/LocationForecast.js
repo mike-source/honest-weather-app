@@ -1,20 +1,70 @@
-import React from 'react';
-import { useGeolocation } from 'react-use';
-import { Location } from './Location.js';
-import { Weather } from './Weather.js';
+import React, { useState, useEffect } from 'react';
+import Location from './Location.js';
+import Weather from './Weather.js';
 
 const LocationForecast = () => {
-  // TO DO: Find a better way to get location via react hook as this is v.buggy
-  const position = useGeolocation();
+  // default state is to locate user on null island
+  // https://en.wikipedia.org/wiki/Null_Island
+  const [location, setLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+    accuracy: 'Unknown',
+    error: null,
+  });
 
-  console.log(position);
+  // first find out where they are:
+  useEffect(() => {
+    const handleGeoLocation = (position) => {
+      console.log(position);
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        accuracy: position.coords.accuracy,
+        error: null,
+      });
+    };
+
+    const handleGeoLocationError = async (error) => {
+      console.log(error);
+      // uses freegeoip.app to get the location of the request:
+      const response = await fetch(`https://freegeoip.app/json/`).then(
+        (response) => response.json()
+      );
+      setLocation({
+        latitude: response.latitude,
+        longitude: response.longitude,
+        accuracy: 'Unknown',
+        error: error.message,
+      });
+    };
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/watchPosition
+    const watchId = navigator.geolocation.watchPosition(
+      handleGeoLocation, // use device geo location
+      handleGeoLocationError // fallback to geo IP lookup
+    );
+
+    // clean up:
+    return () => {
+      // remove location listener when component unmounts
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, []);
 
   return (
     <>
+      {location.error && (
+        <>
+          <h2>Error: {location.error}</h2>
+          <p>Attempting to locate via IP, location data may be inaccurate...</p>
+        </>
+      )}
       <Location
-        latitude={position.latitude}
-        longitude={position.longitude}
+        latitude={location.latitude}
+        longitude={location.longitude}
+        accuracy={location.accuracy}
       ></Location>
+      <Weather location={location}></Weather>
     </>
   );
 };
