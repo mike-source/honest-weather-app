@@ -33,6 +33,7 @@ const WeatherEmoji = (props) => {
    * @returns An icon with the relevant emoji!
    */
   function getEmoji(code, floor = 1) {
+    if (typeof code !== 'number') return 0x0; // prevent undefined/wierd input values causing infinite recursion
     if (emojis[code]) {
       // if we have the exact code, return it.
       return emojis[code];
