@@ -16,8 +16,8 @@ const Weather = ({ location }) => {
   useEffect(() => {
     async function getWeather() {
       await fetchWeatherForecast({
-        latitude: location.latitude,
-        longitude: location.longitude,
+        latitude: location?.latitude,
+        longitude: location?.longitude,
       }).then((weatherInfo) => {
         setForecast(weatherInfo);
         setLoading(false);

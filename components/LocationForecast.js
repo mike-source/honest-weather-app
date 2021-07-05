@@ -27,12 +27,12 @@ const LocationForecast = () => {
     const handleGeoLocationError = async (error) => {
       console.log(error);
       // uses freegeoip.app to get the location of the request:
-      const response = await fetch(`https://freegeoip.app/json/`).then(
-        (response) => response.json()
-      );
+      // const response = await fetch(`https://freegeoip.app/json/`).then(
+      //   (response) => response.json()
+      // );
       setLocation({
-        latitude: response.latitude,
-        longitude: response.longitude,
+        latitude: 'ip',
+        longitude: 'ip',
         accuracy: 'Unknown',
         error: error.message,
       });
@@ -55,15 +55,15 @@ const LocationForecast = () => {
     <>
       {location.error && (
         <>
-          <h2>Error: {location.error}</h2>
           <p>Attempting to locate via IP, location data may be inaccurate...</p>
         </>
       )}
-      <Location
+      {location.error || <Location
         latitude={location.latitude}
         longitude={location.longitude}
         accuracy={location.accuracy}
       ></Location>
+      }
       <Weather location={location}></Weather>
     </>
   );
