@@ -7,15 +7,9 @@ const Weather = ({ location }) => {
   const [forecast, setForecast] = useState({});
 
   async function fetchWeatherForecast(location) {
-    console.log('Fetching...');
-    // this needs obscuring
-    const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY; //process.env.REACT_APP_API_KEY;
-    console.log('key is:' + API_KEY);
-    console.log('NODE_ENV:' + process.env.NODE_ENV);
-    // the things we dont need from the api, csv (alerts, minutely, hourly, daily, current)
-    const exclude = 'minutely,daily';
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=${exclude}&appid=${API_KEY}`;
-    const report = await fetch(url).then((response) => response.json());
+    console.log('Fetching weather from our api...');
+    const url = `/api/openweather?latitude=${location.latitude}&longitude=${location.longitude}`
+    const report = await fetch(url).then(res => res.json());
     return report;
   }
 
