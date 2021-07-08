@@ -31,8 +31,12 @@ const Weather = ({ location }) => {
 
   // TODO check fields properly
   if (loading) {
-    return <div className="error">Fetching Weather...</div>;
+    return <div className="loading">Fetching Weather...</div>;
   }
+  if (forecast.message) {
+    return <div className="error">There has been an error fetching the weather</div>
+  }
+
   return (
     <div className="report">
       <div className="report__main">
@@ -42,9 +46,9 @@ const Weather = ({ location }) => {
           </span> */}
       </div>
       <div className="report__description">
-        <WeatherEmoji code={forecast.current.weather[0].id}></WeatherEmoji>
-        {forecast.current.weather[0].description} with a{' '}
-        {forecast.hourly[0].pop * 100}% of getting wet.
+        <WeatherEmoji code={forecast.current.id}></WeatherEmoji>
+        {forecast.current.description} with a{' '}
+        {forecast.current.pop * 100}% of getting wet.
       </div>
       <div className="report__main">
         <span>The weather will be: </span>
@@ -53,9 +57,9 @@ const Weather = ({ location }) => {
           </span> */}
       </div>
       <div className="report__description">
-        <WeatherEmoji code={forecast.hourly[1].weather[0].id}></WeatherEmoji>
-        {forecast.hourly[1].weather[0].description} with a{' '}
-        {forecast.hourly[1].pop * 100}% of getting wet.
+        <WeatherEmoji code={forecast.next.id}></WeatherEmoji>
+        {forecast.next.description} with a{' '}
+        {forecast.next.pop * 100}% of getting wet.
       </div>
     </div>
   );

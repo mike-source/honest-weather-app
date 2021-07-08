@@ -33,17 +33,19 @@ const WeatherEmoji = (props) => {
    * @returns An icon with the relevant emoji!
    */
   function getEmoji(code, floor = 1) {
-    if (typeof code !== 'number') return 0x0; // prevent undefined/wierd input values causing infinite recursion
-    if (emojis[code]) {
-      // if we have the exact code, return it.
-      return emojis[code];
-    } else {
-      // we dont have the exact code
-      floor *= 10; // use this to round down a set magnitude
-      code = Math.floor(code / floor) * floor; // e.g. floor 10: 123 => 120
-      /*       console.log(code, floor); */
-      return getEmoji(code, floor); // try and find the exact code again, or repeat
-    }
+    if (typeof code !== 'number' && typeof floor !== 'number') return 0x0; // prevent undefined/wierd input values causing infinite recursion
+    return emojis[code] ?? getEmoji(Math.floor(code / floor) * floor, floor *= 10);
+
+    // if (emojis[code] !== undefined) {
+    //   // if we have the exact code, return it.
+    //   return emojis[code];
+    // } else {
+    //   // we dont have the exact code
+    //   floor *= 10; // use this to round down a set magnitude
+    //   code = Math.floor(code / floor) * floor; // e.g. floor 10: 123 => 120
+    //   /*       console.log(code, floor); */
+    //   return getEmoji(code, floor); // try and find the exact code again, or repeat
+    // }
   }
 
   // don't forget to convert the unicodepoint into a string!
